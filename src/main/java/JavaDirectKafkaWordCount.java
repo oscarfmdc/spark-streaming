@@ -43,11 +43,12 @@ public final class JavaDirectKafkaWordCount {
         String brokers = args[0];
         String groupId = args[1];
         String topics = args[2];
+        String seconds = args[3];
 
         // Create context with a 2 seconds batch interval
         SparkConf sparkConf = new SparkConf().setAppName("JavaDirectKafkaWordCount");
         JavaSparkContext ctx = JavaSparkContext.fromSparkContext(SparkContext.getOrCreate(sparkConf));
-        JavaStreamingContext jssc = new JavaStreamingContext(ctx, Durations.seconds(2));
+        JavaStreamingContext jssc = new JavaStreamingContext(ctx, Durations.seconds(Integer.parseInt(seconds)));
 
         Set<String> topicsSet = new HashSet<>(Arrays.asList(topics.split(",")));
         Map<String, Object> kafkaParams = new HashMap<>();
